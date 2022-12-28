@@ -1,32 +1,52 @@
-"""import numpy as np
-array_3d=np.array([[[1,2],[3,4]],[[1,2],[3,4]]])
-print(array_3d)"""
-'''import numpy as np
-ar=np.array([1.0,2,3,4])
-print(ar.dtype)
+"""import time
+start=time.perf_counter()
+def calculateTime():
+    print("sleep for 5seconds")
+    time.sleep(5)
+    print("completed sleep")
+calculateTime()
+calculateTime()
+calculateTime()
+finish=time.perf_counter()
+print(f'Finishedin{finish-start} seconds')"""
 
-import numpy as np
-array_stats = [[1,2,3], [4,5,-6]]
-
-print(np.min(array_stats))
-print(np.min(array_stats, axis= 1))
-import numpy as np
-numpyBasic_array = np.array([1,2,3,4, 5, 10.5, "a"])
-
-#print(numpyBasic_array.dtype)
-#print(numpyBasic_array.itemsize)
-
-print((numpyBasic_array.size))'''
-"""import numpy as np
-data_from_text_file=np.genfromtxt('C:\\Users\\user669\\PycharmProjects\\pythonProject\\softwareengineers\\Developers\\Numpy_data1.txt', delimiter=',')
-print(data_from_text_file)"""
-
-
-import numpy as np
-#array_stats = [1,2,3]
-print(np.logspace(1,10,num=10))
-
-
-
+"""import threading
+import time
+start = time.perf_counter()
+def calculateTime():
+    print("sleep for 5seconds")
+    time.sleep(5)
+    print("completed sleep")
+t1=threading.Thread(target=calculateTime)
+t2=threading.Thread(target=calculateTime)
+t3=threading.Thread(target=calculateTime)
+t4=threading.Thread(target=calculateTime)
+t1.start()
+t2.start()
+t3.start()
+t4.start()
+t1.join()
+t2.join()
+t3.join()
+t4.join()
+finish = time.perf_counter()
+print(f'Finished in{finish - start} seconds')"""
 
 
+
+
+####context::
+import concurrent.futures
+import time
+start=time.perf_counter()
+def calculateTime(seconds):
+    print(f"sleep for{seconds} seconds\n")
+    time.sleep(seconds)
+    print(f"completed{seconds} sleep\n")
+with concurrent.futures.ThreadPoolExecutor() as executor:
+    results=[executor.submit(calculateTime,2)for _ in range(5)]
+    for r in concurrent.futures.as_completed(results):
+        #print(r)
+        print(r.result())
+finish=time.perf_counter()
+print(f'finished in {finish-start}seconds')
